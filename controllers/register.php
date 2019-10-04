@@ -14,4 +14,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 $title = 'Create new account';
 $childView = '_register.php';
 include('../views/_layout.php');
+
+if (isset($_SESSION['user'])) {
+    include('../utilities/redirect.php');
+    echo "lkdfkl";
+    redirect('/');
+}
 ?>
