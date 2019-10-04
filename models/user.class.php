@@ -24,7 +24,12 @@ class User extends Application {
         $lastname = $_POST['lname'];
         $email = $_POST['email'];
         $password = $_POST['password'];
-        $stmt->execute();
+
+        if ($stmt->execute()) {
+            return $this->conn->insert_id;
+        } else {
+            return NULL;
+        }
     }
 
     function authenticate($email, $password) {
