@@ -1,7 +1,7 @@
 <span>Welcome
 <?php
 $user = new User();
-$user_details = $user->read($_SESSION['user']);
-echo $user_details['first_name'] . " " . $user_details['last_name'];
+$session_user = $user->read($_SESSION['user']);
+echo $session_user['first_name'] . " " . $session_user['last_name'];
 ?>
 </span>
