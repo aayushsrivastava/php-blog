@@ -20,7 +20,6 @@ include('../views/_layout.php');
 
 if (isset($_SESSION['user'])) {
     include('../utilities/redirect.php');
-    echo "lkdfkl";
     redirect('/');
 }
 ?>
