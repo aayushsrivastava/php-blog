@@ -24,5 +24,22 @@ class Article extends Application {
 
         return $article_details;
     }
+
+    function read_all() {
+        $sql = "
+        SELECT article.*, user.first_name, user.last_name
+        FROM article
+        LEFT JOIN user
+        ON article.userID = user.ID";
+
+        $result = parent::perform_query($sql);
+
+        $all_records = array();
+        while ($row = $result->fetch_assoc()) {
+            array_unshift($all_records, $row); //newest article first
+        }
+
+        return $all_records;
+    }
 }
 ?>

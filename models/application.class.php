@@ -19,6 +19,11 @@ class Application {
         $this->conn->close();
     }
 
+    function perform_query($sql) {
+        $result = $this->conn->query($sql);
+        return $result;
+    }
+
     function read($id, $table) {
         if (filter_var($id, FILTER_VALIDATE_INT) === false) {
             return NULL;
@@ -27,9 +32,8 @@ class Application {
         $sql = "
         SELECT * FROM $table
         WHERE $table.ID = $id";
-        $result = $this->conn->query($sql);
-
-        return $result->fetch_assoc();
+    
+        return $this->perform_query($sql)->fetch_assoc();
     }
 }
 
