@@ -26,7 +26,7 @@ class Application {
 
         $sql = "
         SELECT * FROM $table
-        WHERE user.ID = $id";
+        WHERE $table.ID = $id";
         $result = $this->conn->query($sql);
 
         return $result->fetch_assoc();
