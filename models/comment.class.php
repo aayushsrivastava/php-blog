@@ -16,5 +16,24 @@ class Comment extends Application {
             return NULL;
         }
     }
+
+    //Returns all the comments made on a particular article
+    function loadArticleComments($article_id) {
+        $sql = "
+        SELECT comment.*, user.first_name, user.last_name
+        FROM comment
+        LEFT JOIN user
+        ON comment.userID = user.ID
+        WHERE articleID = $article_id";
+
+        $result = parent::perform_query($sql);
+
+        $all_records = array();
+        while ($row = $result->fetch_assoc()) {
+            array_unshift($all_records, $row); //newest comment first
+        }
+
+        return $all_records;
+    }
 }
 ?>
