@@ -1,16 +1,7 @@
 <?php
 class User extends Application {
     function read($id) {
-        if (filter_var($id, FILTER_VALIDATE_INT) === false) {
-            return NULL;
-        }
-
-        $sql = "
-        SELECT * FROM user
-        WHERE user.ID = $id";
-        $result = $this->conn->query($sql);
-
-        return $result->fetch_assoc();
+        return parent::read($id, 'user');
     }
 
     function create() {

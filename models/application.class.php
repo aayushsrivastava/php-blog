@@ -18,6 +18,19 @@ class Application {
         //Close connection
         $this->conn->close();
     }
+
+    function read($id, $table) {
+        if (filter_var($id, FILTER_VALIDATE_INT) === false) {
+            return NULL;
+        }
+
+        $sql = "
+        SELECT * FROM $table
+        WHERE user.ID = $id";
+        $result = $this->conn->query($sql);
+
+        return $result->fetch_assoc();
+    }
 }
 
 ?>
