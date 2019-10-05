@@ -1,15 +1,20 @@
 <div id="blog">
     <h2><?php echo $article_details['title']; ?></h2>
-    <span>Written by:
-    <a href="/user.php?id=<?php echo $article_details['author']['ID']; ?>">
-    <?php echo $article_details['author']['first_name'] . " "
-        . $article_details['author']['last_name'];
-    ?></a></span>
     <?php
-    $paragraphs = explode("\n", $article_details['content']);
+    $author_id = $article_details['author']['ID'];
+    $author_name = $article_details['author']['first_name'] . " "
+        . $article_details['author']['last_name'];
+
+    echo "<span>Written by: <a href=\"/user.php?id=$author_id\">" .
+        "$author_name</a></span>\n\t<div id=\"article\">\n";
+    
+    $paragraphs = preg_split('/\n|\r\n?/', $article_details['content']);
     foreach($paragraphs as $paragraph) {
-        echo "<p>$paragraph</p>";
+        if ($paragraph) {
+            echo "\t\t<p>$paragraph</p>\n";
+        }
     }
+    echo "\t</div>\n";
     ?>
 </div>
 <div id="comments">
@@ -35,7 +40,7 @@ foreach($article_comments as $comment) {
         "Created on: <span class=\"comment-created\">$comment_date</span>\n" .
         "\t\tLast edit: <span class=\"comment-edited\">$comment_edit</span>" .
         "\n\t</div>\n\t<div class=\"comment-content\">\n";
-    $comment_paras = explode("\n", $comment_content);
+    $comment_paras = preg_split('/\n|\r\n?/', $comment_content);
     foreach($comment_paras as $paragraph) {
         if ($paragraph) {
             echo "\t\t<p>$paragraph</p>\n";
