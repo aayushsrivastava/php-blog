@@ -19,14 +19,14 @@
 </div>
 <div id="comments">
 <h3>Comments</h3>
-<form action="/comment.php" method="post">
-    Comment: <textarea name="comment"></textarea>
-    <?php
-    $article_id = $article_details['ID'];
-    echo "<input type=\"hidden\" name=\"article\" value=\"$article_id\">\n";
-    ?>
-    <input type="submit" value="Submit Comment">
-</form>
+<?php
+if (isset($_SESSION['user'])) {
+    include('_comment.php');
+} else {
+    echo "<div>Login to comment!</div>";
+}
+echo "\n";
+?>
 <?php
 foreach($article_comments as $comment) {
     $comment_author = $comment['first_name'] . ' ' . $comment['last_name'];
