@@ -16,5 +16,13 @@ class Article extends Application {
             return NULL;
         }
     }
+
+    function read($id) {
+        $article_details = parent::read($id, 'article');
+        $author = parent::read($article_details['userID'], 'user');
+        $article_details['author'] = $author;
+
+        return $article_details;
+    }
 }
 ?>
