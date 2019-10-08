@@ -1,6 +1,30 @@
 <?php
+session_start();
+
 include('../models/import.php');
 $article = new Article();
+
+if ($_GET['action'] === 'edit') {
+    $authorized = false;
+    if (isset($_SESSION['user'])) {
+        $article_user = $article->get_user($_GET['id']);
+        if ($article_user === $_SESSION['user']) {
+            $authorized = true;
+        }
+    }
+    if ($authorized) {
+        $article_details = $article->read($_GET['id']);
+        $title = "Edit article: " . $article_details;
+        $childView = '_edit_article.php';
+        include('../views/_layout.php');
+    } else {
+        $title = "Unauthorized access - Edit article";
+        $childView = '_unauthorized_access.php';
+        include('../views/_layout.php');
+    }
+    die();
+}
+
 $article_details = $article->read($_GET['id']);
 
 $comment = new Comment();

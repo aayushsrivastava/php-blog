@@ -41,5 +41,15 @@ class Article extends Application {
 
         return $all_records;
     }
+
+    function get_user($article_id) {
+        $sql = "
+        SELECT userID
+        FROM article
+        WHERE article.ID = $article_id";
+
+        $result = parent::perform_query($sql);
+        return $result->fetch_assoc()['userID'];
+    }
 }
 ?>
