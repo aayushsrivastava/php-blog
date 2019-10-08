@@ -26,11 +26,30 @@ if ($_GET['action'] === 'edit') {
     die();
 }
 
+if ($_GET['action'] === 'delete') {
+    if ($authorized) {
+        $article_details = $article->read($_GET['id']);
+        $title = 'Delete article: ' . $article_details['title'];
+        $childView = '_delete_article.php';
+        include('../views/_layout.php');
+    } else {
+        $title = "Unauthorized access - Delete article";
+        $childView = '_unauthorized_access.php';
+        include('../views/_layout.php');
+    }
+    die();
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($authorized) {
-        $article->update();
         include('../utilities/redirect.php');
-        redirect('/article.php?id=' . $_GET['id']);
+        if ($_GET['delete'] === 'true') {
+            $article->delete();
+            redirect('/');
+        } else {
+            $article->update();
+            redirect('/article.php?id=' . $_GET['id']);
+        }
     }
     die();
 }
