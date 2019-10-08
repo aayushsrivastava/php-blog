@@ -6,8 +6,19 @@
         . $article_details['author']['last_name'];
 
     echo "<span>Written by: <a href=\"/user.php?id=$author_id\">" .
-        "$author_name</a></span>\n\t<div id=\"article\">\n";
+        "$author_name</a></span>\n";
     
+    if ($authorized) {
+        $article_id = $_GET['id'];
+        echo "\t<div id=\"author-control\">\n\t\t<span>" .
+        "<a href=\"/article.php?id=$article_id&amp;action=edit\">Edit" .
+        "</a></span>\n\t\t<span>" .
+        "<a href=\"/article.php?id=$article_id&amp;action=delete\">Delete" .
+        "</a></span>\n\t</div>\n";
+    }
+
+    echo "\t<div id=\"article\">\n";
+
     $paragraphs = preg_split('/\n|\r\n?/', $article_details['content']);
     foreach($paragraphs as $paragraph) {
         if ($paragraph) {
