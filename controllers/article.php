@@ -26,6 +26,15 @@ if ($_GET['action'] === 'edit') {
     die();
 }
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if ($authorized) {
+        $article->update();
+        include('../utilities/redirect.php');
+        redirect('/article.php?id=' . $_GET['id']);
+    }
+    die();
+}
+
 $article_details = $article->read($_GET['id']);
 
 $comment = new Comment();

@@ -51,5 +51,23 @@ class Article extends Application {
         $result = parent::perform_query($sql);
         return $result->fetch_assoc()['userID'];
     }
+
+    function update() {
+        $stmt = $this->conn->prepare("
+        UPDATE article
+        SET title = ?, content = ?
+        WHERE article.ID = ?");
+        $stmt->bind_param("ssi", $title, $content, $article_id);
+
+        $title = $_POST['title'];
+        $content = $_POST['content'];
+        $article_id = $_GET['id'];
+
+        if ($stmt->execute()) {
+            return $this->conn->insert_id;
+        } else {
+            return NULL;
+        }
+    }
 }
 ?>
