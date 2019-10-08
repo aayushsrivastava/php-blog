@@ -40,6 +40,20 @@ if ($_GET['action'] === 'delete') {
     die();
 }
 
+if ($_GET['action'] === 'change_password') {
+    if ($authorized) {
+        $user_details = $user->read($_GET['id']);
+        $title = "Change Password - " . $user_details['email'];
+        $childView = '_change_password.php';
+        include('../views/_layout.php');
+    } else {
+        $title = 'Unauthorized access - Change password';
+        $childView = '_unauthorized_access.php';
+        include('../views/_layout.php');
+    }
+    die();
+}
+
 $user_details = $user->read($_GET['id']);
 
 $title = 'User Information';
