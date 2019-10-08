@@ -15,11 +15,25 @@ if (isset($_SESSION['user'])) {
 if ($_GET['action'] === 'edit') {
     if ($authorized) {
         $user_details = $user->read($_GET['id']);
-        $title = "User settings: " . $user_details['email'];
+        $title = "User settings - " . $user_details['email'];
         $childView = '_user_settings.php';
         include('../views/_layout.php');
     } else {
         $title = "Unauthorized access - User settings";
+        $childView = '_unauthorized_access.php';
+        include('../views/_layout.php');
+    }
+    die();
+}
+
+if ($_GET['action'] === 'delete') {
+    if ($authorized) {
+        $user_details = $user->read($_GET['id']);
+        $title = "Delete Account - " . $user_details['email'];
+        $childView = '_delete_account.php';
+        include('../views/_layout.php');
+    } else {
+        $title = "Unauthorized access - Delete account";
         $childView = '_unauthorized_access.php';
         include('../views/_layout.php');
     }
