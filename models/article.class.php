@@ -69,5 +69,16 @@ class Article extends Application {
             return NULL;
         }
     }
+
+    function delete() {
+        $stmt = $this->conn->prepare("
+        DELETE FROM article
+        WHERE article.ID = ?");
+        $stmt->bind_param("i", $article_id);
+
+        $article_id = $_GET['id'];
+
+        return $stmt->execute();
+    }
 }
 ?>
