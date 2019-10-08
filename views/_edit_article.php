@@ -12,6 +12,6 @@ echo $article_details['title'] ?></a><?php echo " by " . $author_name; ?></span>
     <textarea name="content"><?php 
     echo $article_details['content']; ?></textarea>
     <br>
-    <input type="submit">
+    <input type="submit" value="Update article">
 </form>
 </div>

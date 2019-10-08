@@ -15,7 +15,7 @@ if (isset($_SESSION['user'])) {
 if ($_GET['action'] === 'edit') {
     if ($authorized) {
         $article_details = $article->read($_GET['id']);
-        $title = "Edit article: " . $article_details;
+        $title = "Edit article: " . $article_details['title'];
         $childView = '_edit_article.php';
         include('../views/_layout.php');
     } else {
