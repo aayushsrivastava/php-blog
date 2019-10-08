@@ -12,7 +12,7 @@ if (isset($_SESSION['user'])) {
     }
 }
 
-if ($_GET['action'] === 'edit') {    
+if ($_GET['action'] === 'edit') {
     if ($authorized) {
         $article_details = $article->read($_GET['id']);
         $title = "Edit article: " . $article_details;
