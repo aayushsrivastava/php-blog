@@ -59,6 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         include('../utilities/redirect.php');
         if ($_GET['delete'] === 'true') {
             $user->delete();
+            include('../utilities/end_session.php');
             redirect('/');
         }
         else if ($_GET['change_password'] === true) {
