@@ -40,6 +40,17 @@ class User extends Application {
             'authenticated?' => ($password === $user_password),
             'id' => $user_id];
     }
+
+    function delete() {
+        $stmt = $this->conn->prepare("
+        DELETE FROM user
+        WHERE user.ID = ?");
+        $stmt->bind_param("i", $user_id);
+
+        $user_id = $_GET['id'];
+
+        return $stmt->execute();
+    }
 }
 
 ?>

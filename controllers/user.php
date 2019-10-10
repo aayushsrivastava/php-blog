@@ -54,6 +54,23 @@ if ($_GET['action'] === 'change_password') {
     die();
 }
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if ($authorized) {
+        include('../utilities/redirect.php');
+        if ($_GET['delete'] === 'true') {
+            $user->delete();
+            redirect('/');
+        }
+        else if ($_GET['change_password'] === true) {
+            $user->update_password();
+            redirect("/user.php?id=" . $_GET['id']);
+        } else {
+            $user->update();
+            redirect("/user.php?id=" . $_GET['id']);
+        }
+    }
+}
+
 $user_details = $user->read($_GET['id']);
 
 $title = 'User Information';
