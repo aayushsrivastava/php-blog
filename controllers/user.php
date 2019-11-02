@@ -62,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             include('../utilities/end_session.php');
             redirect('/');
         }
-        else if ($_GET['change_password'] === true) {
+        else if ($_GET['change_password'] === 'true') {
             $user->update_password();
             redirect("/user.php?id=" . $_GET['id']);
         } else {

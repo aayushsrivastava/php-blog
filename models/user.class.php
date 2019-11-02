@@ -76,6 +76,28 @@ class User extends Application {
         }
     }
 
+    function update_password() {
+        if (!$this->validate_password($_GET['id'], $_POST['old_password'])) {
+            return;
+        }
+
+        $stmt = $this->conn->prepare("
+        UPDATE user
+        SET password = ?
+        WHERE user.ID = ?");
+        $stmt->bind_param("si", $new_password, $user_id);
+
+        $new_password = $_POST['new_password'];
+        $user_id = $_GET['id'];
+
+        if ($stmt->execute()) {
+            return $this->conn->insert_id;
+        }
+        else {
+            return NULL;
+        }
+    }
+
     function delete() {
         $stmt = $this->conn->prepare("
         DELETE FROM user
