@@ -52,7 +52,18 @@ foreach($article_comments as $comment) {
         "</div>\n\t<div class=\"comment-dates\">\n\t\t". 
         "Created on: <span class=\"comment-created\">$comment_date</span>\n" .
         "\t\tLast edit: <span class=\"comment-edited\">$comment_edit</span>" .
-        "\n\t</div>\n\t<div class=\"comment-content\">\n";
+        "\n\t</div>\n\t";
+    
+    if ($_SESSION['user'] === $comment['userID']) {
+        $comment_id = $comment['ID'];
+        echo "<div class=\"comment-control\">\n\t\t<span>" . 
+        "<a href=\"/comment.php?id=$comment_id&amp;action=edit\">Edit</a>" .
+        "</span>\n\t\t<span>" .
+        "<a href=\"comment.php?id=$comment_id&amp;action=delete\">Delete</a>" .
+        "</span>\n\t</div>\n\t";
+    }
+
+    echo "<div class=\"comment-content\">\n";
     $comment_paras = preg_split('/\n|\r\n?/', $comment_content);
     foreach($comment_paras as $paragraph) {
         if ($paragraph) {
