@@ -5,7 +5,7 @@ include('../models/import.php');
 $comment = new Comment();
 
 $authorized = false;
-if (isset($_SESSION['user'])) {
+if (isset($_SESSION['user']) && isset($_GET['id'])) {
     $comment_user = $comment->get_user($_GET['id']);
     if ($comment_user === $_SESSION['user']) {
         $authorized = true;
@@ -40,8 +40,23 @@ if ($_GET['action'] === 'delete') {
     die();
 }
 
+//update/delete request on a particular comment
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['id'])) {
+    if ($authorized) {
+        include('../utilities/redirect.php');
+        $article_id = $comment->read($_GET['id'])['articleID'];
+        if ($_GET['delete'] === 'true') {
+            $comment->delete($_GET['id']);
+        } else {
+            $comment->update($_GET['id']);
+        }
+        redirect("/article.php?id=$article_id");
+    }
+    die();
+}
+
+//create request for a new comment
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SESSION['user'])) {
-    $comment = new Comment();
     $comment->create();
 
     include('../utilities/redirect.php');

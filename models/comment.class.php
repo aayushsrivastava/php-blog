@@ -58,5 +58,22 @@ class Comment extends Application {
 
         return $all_records;
     }
+
+    function update($id) {
+        $stmt = $this->conn->prepare("
+        UPDATE comment
+        SET comment = ?
+        WHERE comment.ID = ?");
+        $stmt->bind_param("si", $comment, $comment_id);
+
+        $comment = $_POST['comment'];
+        $comment_id = $id;
+
+        if ($stmt->execute()) {
+            return $this->conn->insert_id;
+        } else {
+            return NULL;
+        }
+    }
 }
 ?>
