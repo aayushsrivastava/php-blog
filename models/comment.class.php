@@ -75,5 +75,16 @@ class Comment extends Application {
             return NULL;
         }
     }
+
+    function delete($id) {
+        $stmt = $this->conn->prepare("
+        DELETE FROM comment
+        WHERE comment.ID = ?");
+        $stmt->bind_param("i", $comment_id);
+
+        $comment_id = $id;
+
+        return $stmt->execute();
+    }
 }
 ?>
