@@ -1,4 +1,4 @@
-<div id="blog">
+<div id="blog" class="jumbotron">
     <h2><?php echo $article_details['title']; ?></h2>
     <?php
     $author_id = $article_details['author']['ID'];
@@ -28,7 +28,7 @@
     echo "\t</div>\n";
     ?>
 </div>
-<div id="comments">
+<div id="comments" class="container">
 <h3>Comments</h3>
 <?php
 if (isset($_SESSION['user'])) {
@@ -46,7 +46,7 @@ foreach($article_comments as $comment) {
     $comment_edit = $comment['last_edit_date'];
     $comment_author_id = $comment['userID'];
 
-    echo "<div class=\"comment-box\">\n" . 
+    echo "<div class=\"comment-box border my-2 p-3\">\n" . 
         "\t<div class=\"comment-author\">" .
         "<a href=\"/user.php?id=$comment_author_id\">$comment_author</a>" .
         "</div>\n\t<div class=\"comment-dates\">\n\t\t". 
@@ -63,11 +63,13 @@ foreach($article_comments as $comment) {
         "</span>\n\t</div>\n\t";
     }
 
-    echo "<div class=\"comment-content\">\n";
+    echo "<div class=\"border-bottom mt-1 mb-2\"></div>\n\t";
+
+    echo "<div class=\"comment-content pl-2\">\n";
     $comment_paras = preg_split('/\n|\r\n?/', $comment_content);
     foreach($comment_paras as $paragraph) {
         if ($paragraph) {
-            echo "\t\t<p>$paragraph</p>\n";
+            echo "\t\t<p class=\"mb-2\">$paragraph</p>\n";
         }
     }
     echo "\t</div>\n</div>\n";

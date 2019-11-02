@@ -1,5 +1,8 @@
+<h2>Login to your account</h2>
 <form action="/login.php" method="post">
-Email: <input type="text" name="email"><br>
-Password: <input type="password" name="password"><br>
-<input type="submit" value="Login">
+    <label for="email">Email:</label>
+    <input type="text" class="form-control" name="email" id="email"><br>
+    <label for="password">Password:</label>
+    <input type="password" class="form-control" name="password" id="password"><br>
+<input type="submit" class="btn btn-primary" value="Login">
 </form>
