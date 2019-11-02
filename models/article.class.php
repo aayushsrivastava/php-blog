@@ -52,7 +52,7 @@ class Article extends Application {
         return $result->fetch_assoc()['userID'];
     }
 
-    function update() {
+    function update($id) {
         $stmt = $this->conn->prepare("
         UPDATE article
         SET title = ?, content = ?
@@ -61,7 +61,7 @@ class Article extends Application {
 
         $title = $_POST['title'];
         $content = $_POST['content'];
-        $article_id = $_GET['id'];
+        $article_id = $id;
 
         if ($stmt->execute()) {
             return $this->conn->insert_id;
@@ -70,13 +70,13 @@ class Article extends Application {
         }
     }
 
-    function delete() {
+    function delete($id) {
         $stmt = $this->conn->prepare("
         DELETE FROM article
         WHERE article.ID = ?");
         $stmt->bind_param("i", $article_id);
 
-        $article_id = $_GET['id'];
+        $article_id = $id;
 
         return $stmt->execute();
     }

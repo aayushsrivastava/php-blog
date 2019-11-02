@@ -44,10 +44,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($authorized) {
         include('../utilities/redirect.php');
         if ($_GET['delete'] === 'true') {
-            $article->delete();
+            $article->delete($_GET['id']);
             redirect('/');
         } else {
-            $article->update();
+            $article->update($_GET['id']);
             redirect('/article.php?id=' . $_GET['id']);
         }
     }
