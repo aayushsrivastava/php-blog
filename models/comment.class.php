@@ -17,6 +17,29 @@ class Comment extends Application {
         }
     }
 
+    function read($id) {
+        //all comment attributes, user name, article title
+        $comment_details = parent::read($id, 'comment');
+        $author = parent::read($comment_details['userID'], 'user');
+        $article = parent::read($comment_details['articleID'], 'article');
+
+        $comment_details['author_name'] = $author['first_name'] . ' ' 
+            . $author['last_name'];
+        $comment_details['article_title'] = $article['title'];
+
+        return $comment_details;
+    }
+
+    function get_user($comment_id) {
+        $sql = "
+        SELECT userID
+        FROM comment
+        WHERE comment.ID = $comment_id";
+
+        $result = parent::perform_query($sql);
+        return $result->fetch_assoc()['userID'];
+    }
+
     //Returns all the comments made on a particular article
     function loadArticleComments($article_id) {
         $sql = "
