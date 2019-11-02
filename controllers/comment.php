@@ -19,7 +19,21 @@ if ($_GET['action'] === 'edit') {
         $childView = '_edit_comment.php';
         include("../views/_layout.php");
     } else {
-        $title = "Unauthorized access - Edit article";
+        $title = "Unauthorized access - Edit comment";
+        $childView = '_unauthorized_access.php';
+        include('../views/_layout.php');
+    }
+    die();
+}
+
+if ($_GET['action'] === 'delete') {
+    if ($authorized) {
+        $comment_details = $comment->read($_GET['id']);
+        $title = "Delete comment";
+        $childView = '_delete_comment.php';
+        include('../views/_layout.php');
+    } else {
+        $title = "Unauthorized access - Delete comment";
         $childView = '_unauthorized_access.php';
         include('../views/_layout.php');
     }
